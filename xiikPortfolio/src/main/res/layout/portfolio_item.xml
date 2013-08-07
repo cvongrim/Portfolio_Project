@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 android:background="@drawable/background">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textviewtitle"
+            android:id="@+id/textViewTitle"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="12dp"
+            android:textSize="22dp"
+            android:textIsSelectable="true" android:textColor="#ffffff"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/textviewexcerpt"
+            android:id="@+id/textViewExcerpt"
+            android:layout_marginTop="18dp"
+            android:layout_below="@+id/textViewTitle"
+            android:layout_centerHorizontal="true"
+            android:padding="20dp"
+            android:textSize="16dp" android:textColor="#ffffff"/>
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/button_back"
+            android:id="@+id/buttonBack"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="16dp"/>
+
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="400px"
+            android:id="@+id/imageViewMain"
+            android:layout_alignParentEnd="false"
+            android:layout_alignParentStart="false"
+            android:layout_below="@+id/textViewExcerpt"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25px"/>
+</RelativeLayout>
