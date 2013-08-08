@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.io.InputStream;
 
@@ -38,10 +40,17 @@ public class PortfolioItem extends Gridview{
             textViewExcerpt.setText(portfolio_excerpt);
             //textViewUrl.setText(port_img_url);
            // new DownloadImageTask((ImageView) findViewById(R.id.imageViewMain)).execute(port_img_url);
-
+          /*
             ImageView imgView = (ImageView) findViewById(R.id.imageViewMain);
             ImageLoader imgLoader = new ImageLoader(this);
-            imgLoader.DisplayImage(port_img_url, imgView);
+            imgLoader.DisplayImage(port_img_url, imgView);   */
+
+            ImageView imgView = (ImageView) findViewById(R.id.imageViewMain);
+            ImageLoader imageLoader = ImageLoader.getInstance();
+            imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+            imageLoader.displayImage(port_img_url, imgView);
+
+
         }
 
         // set up button listener
