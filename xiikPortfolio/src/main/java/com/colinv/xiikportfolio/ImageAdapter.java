@@ -34,26 +34,25 @@ public class ImageAdapter extends BaseAdapter {
 
         if (convertView == null) {
 
-            gridView = new View(context);
+            //gridView = new View(context);
 
             // get layout from mobile.xml
             gridView = inflater.inflate(R.layout.mobile, null);
 
-            // set value into textview
+            // set value into TextView
             TextView textView = (TextView) gridView
                     .findViewById(R.id.grid_item_label);
 
             ArrayList<String> portArray = mobileValues.get(position);
-            Log.d("ImageAdapter OutPut", portArray.get(0));
             textView.setText(portArray.get(0));
 
 
             String port_img_url = portArray.get(2);
             // set image based on selected text
-            // new DownloadImageTask((ImageView) gridView.findViewById(R.id.grid_item_image)).execute(port_img_url);
-            ImageView imgView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-            ImageLoader imgLoader = new ImageLoader(context);
-            imgLoader.DisplayImage(port_img_url, imgView);
+            new DownloadImageTask((ImageView) gridView.findViewById(R.id.grid_item_image)).execute(port_img_url);
+            /*ImageView imgView = (ImageView) gridView.findViewById(R.id.grid_item_image);
+            ImageLoader imgLoader = new ImageLoader(gridView.getContext());
+            imgLoader.DisplayImage(port_img_url, imgView); */
 
 
             // ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
