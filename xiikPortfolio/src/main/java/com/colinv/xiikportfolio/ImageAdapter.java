@@ -1,18 +1,16 @@
 package com.colinv.xiikportfolio;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -49,15 +47,18 @@ public class ImageAdapter extends BaseAdapter {
 
             String port_img_url = portArray.get(2);
             // set image based on selected text
-            new DownloadImageTask((ImageView) gridView.findViewById(R.id.grid_item_image)).execute(port_img_url);
-            /*ImageView imgView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-            ImageLoader imgLoader = new ImageLoader(gridView.getContext());
-            imgLoader.DisplayImage(port_img_url, imgView); */
+
+            // Turn on Image Caching
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+            .cacheInMemory(true)
+            .cacheOnDisc(true)
+            .build();
 
 
-            // ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-
-           // imageView.setImageResource(R.drawable.android_logo);
+            ImageView imgView = (ImageView) gridView.findViewById(R.id.grid_item_image); // Grab Image View
+            ImageLoader imageLoader = ImageLoader.getInstance();     // Create Image Loader
+            imageLoader.init(ImageLoaderConfiguration.createDefault(context));  // Initialize Loader
+            imageLoader.getInstance().displayImage(port_img_url, imgView, options);  // Load from the URL into the view
 
         } else {
             gridView = (View) convertView;
@@ -66,30 +67,6 @@ public class ImageAdapter extends BaseAdapter {
         return gridView;
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
 
     @Override
     public int getCount() {

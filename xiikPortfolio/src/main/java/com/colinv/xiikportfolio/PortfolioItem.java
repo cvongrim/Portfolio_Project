@@ -1,24 +1,21 @@
 package com.colinv.xiikportfolio;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
-import java.io.InputStream;
 
 /**
  * Created by Colinv on 8/5/13.
  */
 public class PortfolioItem extends Gridview{
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,28 +24,31 @@ public class PortfolioItem extends Gridview{
         // Get Data of what gallery item was pushed
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            String portfolio_title = extras.getString("portfolio_title");
-            String portfolio_excerpt = extras.getString("portfolio_excerpt");
-            String port_img_url = extras.getString("port_img_url");
 
+            // Get our variables from the Intent
+            String portfolioTitle = extras.getString("portfolioTitle");
+            String portfolioExcerpt = extras.getString("portfolioExcerpt");
+            String portfolioImageUrl = extras.getString("portfolioImageUrl");
+
+            // Assign references to our TextViews
             TextView textViewTitle = (TextView) findViewById(R.id.textViewTitle);
             TextView textViewExcerpt = (TextView) findViewById(R.id.textViewExcerpt);
-            //TextView textViewUrl = (TextView) findViewById(R.id.textViewUrl);
-            ImageView imageViewMain = (ImageView) findViewById(R.id.imageViewMain);
 
-            textViewTitle.setText(portfolio_title);
-            textViewExcerpt.setText(portfolio_excerpt);
-            //textViewUrl.setText(port_img_url);
-           // new DownloadImageTask((ImageView) findViewById(R.id.imageViewMain)).execute(port_img_url);
-          /*
-            ImageView imgView = (ImageView) findViewById(R.id.imageViewMain);
-            ImageLoader imgLoader = new ImageLoader(this);
-            imgLoader.DisplayImage(port_img_url, imgView);   */
+            // Set the variables as the value of our TextViews
+            textViewTitle.setText(portfolioTitle);
+            textViewExcerpt.setText(portfolioExcerpt);
 
+            // Set up our image caching
+            DisplayImageOptions options = new DisplayImageOptions.Builder()
+                    .cacheInMemory(true)
+                    .cacheOnDisc(true)
+                    .build();
+
+            // Create a reference to our ImageView
             ImageView imgView = (ImageView) findViewById(R.id.imageViewMain);
             ImageLoader imageLoader = ImageLoader.getInstance();
-            imageLoader.init(ImageLoaderConfiguration.createDefault(this));
-            imageLoader.displayImage(port_img_url, imgView);
+            imageLoader.init(ImageLoaderConfiguration.createDefault(this)); // Initialize the ImageLoader
+            imageLoader.displayImage(portfolioImageUrl, imgView, options);  // Load the image into our ImageView
 
 
         }
@@ -62,31 +62,5 @@ public class PortfolioItem extends Gridview{
             }
         });
     }
-
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImageTask(ImageView bmImage) {
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls) {
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try {
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            } catch (Exception e) {
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result) {
-            bmImage.setImageBitmap(result);
-        }
-    }
-
 
 }

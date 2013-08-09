@@ -10,13 +10,10 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -25,17 +22,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Gridview extends Activity {
 
 
     public GridView gridView;
-    // ArrayList that we will use to populate our gridview
+    // ArrayList that we will use to populate our gridView
     ArrayList<ArrayList> portfolioArrayList = new ArrayList<ArrayList>();
 
 
@@ -186,9 +182,9 @@ public class Gridview extends Activity {
         String port_img_url = portfolioObject.get(2); // Get the url to the image
 
         // Attach the values
-        viewGallery.putExtra("portfolio_title", port_title);
-        viewGallery.putExtra("portfolio_excerpt", port_excerpt);
-        viewGallery.putExtra("port_img_url", port_img_url);
+        viewGallery.putExtra("portfolioTitle", port_title);
+        viewGallery.putExtra("portfolioExcerpt", port_excerpt);
+        viewGallery.putExtra("portfolioImageUrl", port_img_url);
 
         // Start the activity
         startActivity(viewGallery);
